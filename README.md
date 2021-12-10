@@ -1,2 +1,2 @@
 # SerialRead
-A python3 program that read by Arduino's serial port
+A base pyton3 program that read from serial port.
