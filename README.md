@@ -1,2 +1,2 @@
 # SerialRead
-A base pyton3 program that read from serial port.
+A plug-and-play program that read the output from serial port.
