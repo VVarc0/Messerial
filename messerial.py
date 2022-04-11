@@ -1,3 +1,6 @@
+
+#! /usr/bin/python3
+
 #This program can Only read and print the serial buffer's data.
 #
 #The software start from "" joins in "thereIsAboard()" and try to find a board.
