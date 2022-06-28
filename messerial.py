@@ -68,11 +68,11 @@ def thereIsAboard():
 #   OUTPUT
 #-------------------------------------------------------------------------------------------------------------
 
-def toString(v):    
-    return output, v #Customize the output
+def toString(val):    
+    return output, val #Customize the output
 
-def show(v):    
-    print(toString(v))
+def show(val):    
+    print(toString(val))
 
 #-------------------------------------------------------------------------------------------------------------
 #   START
