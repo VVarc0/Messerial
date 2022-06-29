@@ -8,6 +8,8 @@
 #   If it find a board it start reading. 
 #   If it doesen't find it join in "boardNotFound()" print an error.
 #   In "toString" method you can customize the output string.
+#   
+#   If you need read from more board you need to add more ports.
 #-------------------------------------------------------------------------------------------------------------
 
 import time 
@@ -28,8 +30,8 @@ except:
 maxTimes:int = 10 # max error times
 timeSleep:float = 1.0 # scheduling time
 
-port = "/dev/ttyACM0" # the port on which serial communication is to take place
-output = "OUTPUT: " #Customize the output
+port1 = "/dev/ttyACM0" # The port on which serial communication is to take place
+output = "" #   Customize the python3 script output (This not customize the arduino's output)
 
 #-------------------------------------------------------------------------------------------------------------
 
@@ -38,21 +40,21 @@ output = "OUTPUT: " #Customize the output
 def boardNotFound():
 
     if maxTimes == 0:
-        print("\nNO BOARD FOUND on ",port,": exit.") #If it not indentify a board for 'timeSleep' times
+        print("\nNO BOARD FOUND on ",port1,": exit.") #  If it not indentify a board for 'timeSleep' times
         time.sleep(1.5)
         exit()
 
     else:
-        print("\nERROR: no board found on ",port)    #If it can't indentify a board
+        print("\nERROR: no board found on ",port1)    #  If it can't indentify a board
         print("Searching board...")
 
     time.sleep(1.5)
 
 #   If indentify a board
 
-def thereIsAboard():
+def connectToBoard():
 
-    board = serial.Serial(port, 9600) #Detect if there is a board
+    board = serial.Serial(port1, 9600) # Detect if there is a board
 
     print("\n\n---[BOARD FOUND]---")
     time.sleep(1.5)
@@ -69,7 +71,7 @@ def thereIsAboard():
 #-------------------------------------------------------------------------------------------------------------
 
 def toString(val):    
-    return output, val #Customize the output
+    return output, val #    The script's output string
 
 def show(val):    
     print(toString(val))
@@ -78,13 +80,13 @@ def show(val):
 #   START
 #-------------------------------------------------------------------------------------------------------------
 while True:
-
+        
+    #   Try to find a board
     try:
 
-        #Try to find a board
-        thereIsAboard()
+        connectToBoard()
 
-    #error
+    #   Exception in board searching
     except:
 
         #maxTimes' decrementation
