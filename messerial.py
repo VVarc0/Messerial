@@ -23,74 +23,58 @@ except:
     print("Is required the installation of 'python3-serial' package")
     exit()
 
-#-------------------------------------------------------------------------------------------------------------
-#   DECLARATIONS
-#-------------------------------------------------------------------------------------------------------------
+#********************************************* DECLARATIONS *********************************************
 
 maxTimes:int = 10 # max error times
 timeSleep:float = 1.0 # scheduling time
 
-port1 = "/dev/ttyACM0" # The port on which serial communication is to take place
-output = "" #   Customize the python3 script output (This not customize the arduino's output)
+defaultPort = "/dev/ttyACM0" # The port on which serial communication is to take place
+defaultBoundrate = 9600 # bit/s
 
-#-------------------------------------------------------------------------------------------------------------
+#********************************************************************************************************
 
 #   If not identify a board
 
 def boardNotFound():
 
     if maxTimes == 0:
-        print("\nNO BOARD FOUND on ",port1,": exit.") #  If it not indentify a board for 'timeSleep' times
-        time.sleep(1.5)
+        print("\nNO BOARD FOUND : exit().") #  If it not indentify a board for 'timeSleep' times
+        time.sleep(timeSleep)
         exit()
 
     else:
-        print("\nERROR: no board found on ",port1)    #  If it can't indentify a board
-        print("Searching board...")
+        print("\n! ERROR: no board found \n  Searching board...")    #  If it can't indentify a board
+        print()
 
-    time.sleep(1.5)
 
 #   If indentify a board
 
-def connectToBoard():
+def connect(port = defaultPort, br = defaultBoundrate):
 
-    board = serial.Serial(port1, 9600) # Detect if there is a board
+    board = serial.Serial(port, br)
 
-    print("\n\n---[BOARD FOUND]---")
-    time.sleep(1.5)
+    print("\n\n*******[BOARD FOUND]*******")
 
     while True:
 
-        value = board.readline().decode()
+        print(board.readline().decode())
         time.sleep(timeSleep)
 
-        show(value)
+#********************************************* START *********************************************
 
-#-------------------------------------------------------------------------------------------------------------
-#   OUTPUT
-#-------------------------------------------------------------------------------------------------------------
-
-def toString(val):    
-    return output, val #    The script's output string
-
-def show(val):    
-    print(toString(val))
-
-#-------------------------------------------------------------------------------------------------------------
-#   START
-#-------------------------------------------------------------------------------------------------------------
 while True:
         
     #   Try to find a board
     try:
 
-        connectToBoard()
+        connect()
 
     #   Exception in board searching
-    except:
+    except :
 
         #maxTimes' decrementation
         maxTimes -= 1
 
         #No board found
         boardNotFound()
+        time.sleep(timeSleep)
